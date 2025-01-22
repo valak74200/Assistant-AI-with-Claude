@@ -44,7 +44,7 @@ ANTHROPIC_API_KEY=your_api_key_here
 Pour lancer l'application :
 
 ```bash
-python main.py
+python3 run.py
 ```
 
 ## 🏗 Structure du Projet
