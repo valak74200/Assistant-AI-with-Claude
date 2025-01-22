@@ -1,4 +1,4 @@
-# Claude Assistant Desktop
+# Claude Assistant
 
 Une application de bureau moderne pour interagir avec Claude, l'assistant IA d'Anthropic, développée en Python avec Tkinter.
 
@@ -25,8 +25,8 @@ Une application de bureau moderne pour interagir avec Claude, l'assistant IA d'A
 
 1. Clonez le dépôt :
 ```bash
-git clone https://github.com/username/claude-assistant-desktop.git
-cd claude-assistant-desktop
+git clone https://github.com/username/Assistant-AI-with-Claude.git
+cd Assistant-AI-with-Claude
 ```
 
 2. Installez les dépendances :
