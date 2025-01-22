@@ -5,49 +5,66 @@ from datetime import datetime
 
 class ChatBubble(tk.Frame):
     def __init__(self, master, message, is_user=False, theme=None):
-        super().__init__(master, bg=theme['bg_color'] if theme else '#ffffff')
+        super().__init__(master, bg=theme['bg_color'])
         
-        self.message = message
-        self.is_user = is_user
-        self.theme = theme
+        # Frame principale pour la bulle
+        bubble_frame = tk.Frame(self, bg=theme['bg_color'])
+        bubble_frame.pack(fill=tk.X, pady=5)
         
-        bubble_bg = (
-            self.theme['user_bubble_bg'] if is_user else self.theme['bot_bubble_bg']
-        ) if self.theme else ('#6e2cf2' if is_user else '#f0f0f0')
-        
-        bubble_fg = (
-            self.theme['user_bubble_text'] if is_user else self.theme['bot_bubble_text']
-        ) if self.theme else ('white' if is_user else 'black')
-        
-        self.bubble = tk.Text(
-            self,
-            wrap=tk.WORD,
-            padx=15,
-            pady=10,
-            relief=tk.FLAT,
-            border=0,
-            font=('Segoe UI', 11),
-            width=50,
-            height=self.calculate_height(message),
-            bg=bubble_bg,
-            fg=bubble_fg,
+        # Container du message
+        message_container = tk.Frame(bubble_frame, bg=theme['bg_color'])
+        message_container.pack(
+            side=tk.RIGHT if is_user else tk.LEFT, 
+            fill=tk.X, 
+            padx=10
         )
         
-        self.bubble.insert(tk.END, message)
-        self.bubble.config(state=tk.DISABLED)
-        self.bubble.grid(row=0, column=1 if is_user else 0, padx=10, pady=5)
+        # Info (nom + heure)
+        info_frame = tk.Frame(message_container, bg=theme['bg_color'])
+        info_frame.pack(fill=tk.X, pady=(0, 2))
         
-        # Timestamp
-        time_label = tk.Label(
-            self,
+        name = tk.Label(
+            info_frame,
+            text="Vous" if is_user else "Claude",
+            font=('Segoe UI', 9, 'bold'),
+            fg=theme['text_color'],
+            bg=theme['bg_color']
+        )
+        name.pack(side=tk.LEFT)
+        
+        time = tk.Label(
+            info_frame,
             text=datetime.now().strftime('%H:%M'),
             font=('Segoe UI', 8),
-            fg=theme['text_color'] if theme else '#666666',
-            bg=theme['bg_color'] if theme else '#ffffff'
+            fg='#888888',
+            bg=theme['bg_color']
         )
-        time_label.grid(row=1, column=1 if is_user else 0, sticky='e' if is_user else 'w', padx=10)
-
+        time.pack(side=tk.LEFT, padx=(5, 0))
+        
+        # Message
+        bubble_bg = theme['user_bubble_bg'] if is_user else theme['bot_bubble_bg']
+        bubble_fg = theme['user_bubble_text'] if is_user else theme['bot_bubble_text']
+        
+        self.message_text = tk.Text(
+            message_container,
+            wrap=tk.WORD,
+            font=('Segoe UI', 10),
+            bg=bubble_bg,
+            fg=bubble_fg,
+            relief=tk.FLAT,
+            borderwidth=0,
+            padx=12,
+            pady=8,
+            height=self.calculate_height(message),
+            width=50
+        )
+        self.message_text.pack(fill=tk.X)
+        
+        # Insérer le message et désactiver l'édition
+        self.message_text.insert('1.0', message)
+        self.message_text.configure(state='disabled')
+        
     def calculate_height(self, text):
         char_per_line = 50
         lines = len(text) / char_per_line
-        return min(max(int(lines) + 1, 1), 10)
+        return min(max(int(lines) + 1, 2), 10)

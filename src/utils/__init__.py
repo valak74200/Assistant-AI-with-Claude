@@ -1,4 +1,3 @@
-# src/utils/__init__.py
-from .config import Config
+from .config import Config, ThemeConfig
 
-__all__ = ['Config']
+__all__ = ['Config', 'ThemeConfig']

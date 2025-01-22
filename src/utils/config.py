@@ -1,4 +1,6 @@
-# src/utils/config.py
+import os
+from dotenv import load_dotenv
+import json
 
 class ThemeConfig:
     LIGHT = {
@@ -32,3 +34,36 @@ class ThemeConfig:
         'error_color': '#ff6666',
         'title_bg': '#1a1a1a',
     }
+
+class Config:
+    @staticmethod
+    def load_config():
+        load_dotenv()
+        
+        # Charger ou créer les préférences utilisateur
+        user_prefs = Config.load_user_preferences()
+        
+        return {
+            'api_key': os.getenv('ANTHROPIC_API_KEY'),
+            'window_size': '900x700',
+            'theme': ThemeConfig.LIGHT if user_prefs.get('theme') == 'light' else ThemeConfig.DARK,
+            'user_bubble_color': user_prefs.get('user_bubble_color', '#6e2cf2'),
+            'bot_bubble_color': user_prefs.get('bot_bubble_color', '#f0f0f0'),
+        }
+    
+    @staticmethod
+    def save_user_preferences(preferences):
+        with open('user_preferences.json', 'w') as f:
+            json.dump(preferences, f)
+    
+    @staticmethod
+    def load_user_preferences():
+        try:
+            with open('user_preferences.json', 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return {
+                'theme': 'light',
+                'user_bubble_color': '#6e2cf2',
+                'bot_bubble_color': '#f0f0f0'
+            }

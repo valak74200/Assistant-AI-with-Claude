@@ -4,28 +4,47 @@ import tkinter as tk
 from .modern_button import ModernButton
 
 class TitleBar(tk.Frame):
-    def __init__(self, master, theme, title="Claude Assistant"):
+    def __init__(self, master, theme, on_settings=None):
         super().__init__(
             master,
             bg=theme['bg_color'],
-            height=40
+            height=50
         )
+        self.pack_propagate(False)
         
+        # Logo/Icon (un cercle violet simple pour commencer)
+        self.logo_canvas = tk.Canvas(
+            self,
+            width=30,
+            height=30,
+            bg=theme['bg_color'],
+            highlightthickness=0
+        )
+        self.logo_canvas.create_oval(
+            2, 2, 28, 28,
+            fill=theme['button_bg'],
+            outline=""
+        )
+        self.logo_canvas.pack(side=tk.LEFT, padx=10)
+        
+        # Titre
         self.title_label = tk.Label(
             self,
-            text=title,
+            text="Claude Assistant",
             font=('Segoe UI', 12, 'bold'),
             bg=theme['bg_color'],
             fg=theme['text_color']
         )
-        self.title_label.pack(side=tk.LEFT, padx=20)
+        self.title_label.pack(side=tk.LEFT, padx=10)
         
-        # Version label
-        self.version_label = tk.Label(
-            self,
-            text="v1.0",
-            font=('Segoe UI', 8),
-            bg=theme['bg_color'],
-            fg=theme['text_color']
-        )
-        self.version_label.pack(side=tk.LEFT)
+        # Bouton paramètres
+        if on_settings:
+            self.settings_btn = ModernButton(
+                self,
+                text="⚙️",
+                font=('Segoe UI', 12),
+                bg=theme['button_bg'],
+                fg='white',
+                command=on_settings
+            )
+            self.settings_btn.pack(side=tk.RIGHT, padx=10)
