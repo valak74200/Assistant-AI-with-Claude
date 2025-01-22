@@ -1,0 +1,9 @@
+anthropic>=0.18.0
+python-dotenv>=1.0.0
+
+# Bibliothèques Standard Python :
+tkinter
+json
+datetime
+threading
+os
