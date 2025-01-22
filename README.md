@@ -1,4 +1,4 @@
-# Claude Assistant Desktop
+## Claude Assistant Desktop
 
 Une application de bureau moderne pour interagir avec Claude, l'assistant IA d'Anthropic, développée en Python avec Tkinter.
 
