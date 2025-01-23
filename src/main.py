@@ -1,8 +1,8 @@
 import os
 import sys
-from src.utils.config import Config, ThemeConfig
+from src.utils.config import Config
 from src.services.claude_service import ClaudeService
-from src.components.chat_window import ChatWindow
+from src.components.modern_chat_window import ModernChatWindow
 
 def main():
     try:
@@ -13,7 +13,7 @@ def main():
             sys.exit(1)
             
         claude_service = ClaudeService(config['api_key'])
-        chat_window = ChatWindow(claude_service, config)
+        chat_window = ModernChatWindow(claude_service, config)
         chat_window.run()
         
     except Exception as e:

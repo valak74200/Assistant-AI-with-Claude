@@ -1,9 +1,4 @@
-anthropic>=0.18.0
+anthropic>=0.15.0
 python-dotenv>=1.0.0
-
-# Bibliothèques Standard Python :
-tkinter
-json
-datetime
-threading
-os
+pillow>=10.0.0
+requests>=2.31.0
