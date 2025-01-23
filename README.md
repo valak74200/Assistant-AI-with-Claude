@@ -1,6 +1,6 @@
 # Claude Assistant
 
-Une application de bureau moderne pour interagir avec Claude, l'assistant IA d'Anthropic, développée en Python avec Tkinter.
+Un ChatBot pour interagir avec Claude, l'assistant IA d'Anthropic, développée en Python avec Tkinter.
 
 ## 🌟 Fonctionnalités
 
@@ -44,7 +44,7 @@ ANTHROPIC_API_KEY=your_api_key_here
 Pour lancer l'application :
 
 ```bash
-python main.py
+python3 run.py
 ```
 
 ## 🏗 Structure du Projet
